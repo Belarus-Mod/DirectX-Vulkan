@@ -32,15 +32,6 @@ jobs:
         Write-Output "VSDEVCMD=${installationPath}\Common7\Tools\VsDevCmd.bat" `
           | Out-File -FilePath "${Env:GITHUB_ENV}" -Append
 
-    - name: Build MSVC x86
-      shell: pwsh
-      run: |
-        & "${Env:COMSPEC}" /s /c "`"${Env:VSDEVCMD}`" -arch=x86 -host_arch=x64 -no_logo && set" `
-          | % { , ($_ -Split '=', 2) } `
-          | % { [System.Environment]::SetEnvironmentVariable($_[0], $_[1]) }
-        meson --buildtype release --backend vs2022 build-msvc-x86
-        msbuild -m build-msvc-x86/dxvk.sln
-
     - name: Build MSVC x64
       shell: pwsh
       run: |
@@ -49,13 +40,9 @@ jobs:
           | % { [System.Environment]::SetEnvironmentVariable($_[0], $_[1]) }
         meson --buildtype release --backend vs2022 build-msvc-x64
         msbuild -m build-msvc-x64/dxvk.sln
-
-    - name: Packing release
-      run: |
-        start pack-release.cmd
     
-    - name: Upload binaries
+    - name: Upload binaries x64
       uses: actions/upload-artifact@v3
       with:
-        name: dxvk-msvc-build
-        path: build/
+        name: dxvk-msvc-x64
+        path: build-msvc-x64/
