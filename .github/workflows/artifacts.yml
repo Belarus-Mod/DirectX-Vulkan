@@ -1,35 +1,61 @@
-name: Artifacts (Package)
+name: Test Builds on Windows
 
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  build-artifacts:
-    runs-on: ubuntu-20.04
+  build-set-windows:
+    runs-on: windows-2022
 
     steps:
     - name: Checkout code
       id: checkout-code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: recursive
-        fetch-depth: 0
 
-    - name: Setup problem matcher
-      uses: Joshua-Ashton/gcc-problem-matcher@v1
+    - name: Setup glslangValidator
+      shell: pwsh
+      run: |
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/HansKristian-Work/vkd3d-proton-ci/main/glslangValidator.exe" -OutFile "glslangValidator.exe"
+        Write-Output "$pwd" | Out-File -FilePath "${Env:GITHUB_PATH}" -Append
 
-    - name: Build release
-      id: build-release
-      uses: Joshua-Ashton/arch-mingw-github-action@v8
+    - name: Setup Meson
+      shell: pwsh
+      run: pip install meson
+
+    - name: Find Visual Studio
+      shell: pwsh
+      run: |
+        $installationPath = Get-VSSetupInstance `
+          | Select-VSSetupInstance -Require Microsoft.VisualStudio.Workload.NativeDesktop -Latest `
+          | Select-Object -ExpandProperty InstallationPath
+        Write-Output "VSDEVCMD=${installationPath}\Common7\Tools\VsDevCmd.bat" `
+          | Out-File -FilePath "${Env:GITHUB_ENV}" -Append
+
+    - name: Build MSVC x86
+      shell: pwsh
+      run: |
+        & "${Env:COMSPEC}" /s /c "`"${Env:VSDEVCMD}`" -arch=x86 -host_arch=x64 -no_logo && set" `
+          | % { , ($_ -Split '=', 2) } `
+          | % { [System.Environment]::SetEnvironmentVariable($_[0], $_[1]) }
+        meson --buildtype release --backend vs2022 build-msvc-x86
+        msbuild -m build-msvc-x86/dxvk.sln
+
+    - name: Build MSVC x64
+      shell: pwsh
+      run: |
+        & "${Env:COMSPEC}" /s /c "`"${Env:VSDEVCMD}`" -arch=x64 -host_arch=x64 -no_logo && set" `
+          | % { , ($_ -Split '=', 2) } `
+          | % { [System.Environment]::SetEnvironmentVariable($_[0], $_[1]) }
+        meson --buildtype release --backend vs2022 build-msvc-x64
+        msbuild -m build-msvc-x64/dxvk.sln
+
+    - name: Packing release
+      run: |
+        start pack-release.cmd
+    
+    - name: Upload binaries
+      uses: actions/upload-artifact@v3
       with:
-        command: |
-          export VERSION_NAME="${GITHUB_REF##*/}-${GITHUB_SHA##*/}"
-          ./package-release.sh ${VERSION_NAME} build --no-package
-          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
-
-    - name: Upload artifacts
-      id: upload-artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: dxvk-${{ env.VERSION_NAME }}
-        path: build/dxvk-${{ env.VERSION_NAME }}
-        if-no-files-found: error
+        name: dxvk-msvc-build
+        path: build/
