@@ -654,7 +654,7 @@ namespace dxvk {
       RECT rect;
       GetMonitorRect(GetDefaultMonitor(), &rect);
     
-      ::SetWindowPos(m_window, HWND_TOPMOST,
+      ::SetWindowPos(m_window, HWND_NOTOPMOST,
         rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
         SWP_FRAMECHANGED | SWP_SHOWWINDOW | SWP_NOACTIVATE);
     }
@@ -1222,7 +1222,7 @@ namespace dxvk {
     RECT rect;
     GetMonitorRect(GetDefaultMonitor(), &rect);
     
-    ::SetWindowPos(m_window, HWND_TOPMOST,
+    ::SetWindowPos(m_window, HWND_NOTOPMOST,
       rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
       SWP_FRAMECHANGED | SWP_SHOWWINDOW | SWP_NOACTIVATE);
     
