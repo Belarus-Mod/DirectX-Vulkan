@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{80e8c843-0af4-4944-85f8-9fcc89b25ea9}</ProjectGuid>
+    <RootNamespace>d3d9</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include;$(SolutionDir)\include\shaders</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\lib\$(Platform)</LibraryPath>
+    <OutDir>$(SolutionDir)\binaries\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)\intermediate\$(Configuration)-$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include;$(SolutionDir)\include\shaders</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)\lib\$(Platform)</LibraryPath>
+    <OutDir>$(SolutionDir)\binaries\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)\intermediate\$(Configuration)-$(Platform)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level2</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <FloatingPointModel>Strict</FloatingPointModel>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DisableSpecificWarnings>4146</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>d3d9\d3d9.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level2</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <FloatingPointModel>Strict</FloatingPointModel>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DisableSpecificWarnings>4146</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>d3d9\d3d9.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="dxso\dxso_analysis.cpp" />
+    <ClCompile Include="dxso\dxso_code.cpp" />
+    <ClCompile Include="dxso\dxso_common.cpp" />
+    <ClCompile Include="dxso\dxso_compiler.cpp" />
+    <ClCompile Include="dxso\dxso_ctab.cpp" />
+    <ClCompile Include="dxso\dxso_decoder.cpp" />
+    <ClCompile Include="dxso\dxso_enums.cpp" />
+    <ClCompile Include="dxso\dxso_header.cpp" />
+    <ClCompile Include="dxso\dxso_module.cpp" />
+    <ClCompile Include="dxso\dxso_options.cpp" />
+    <ClCompile Include="dxso\dxso_reader.cpp" />
+    <ClCompile Include="dxso\dxso_tables.cpp" />
+    <ClCompile Include="dxso\dxso_util.cpp" />
+    <ClCompile Include="dxvk\dxvk_adapter.cpp" />
+    <ClCompile Include="dxvk\dxvk_barrier.cpp" />
+    <ClCompile Include="dxvk\dxvk_buffer.cpp" />
+    <ClCompile Include="dxvk\dxvk_cmdlist.cpp" />
+    <ClCompile Include="dxvk\dxvk_compute.cpp" />
+    <ClCompile Include="dxvk\dxvk_context.cpp" />
+    <ClCompile Include="dxvk\dxvk_cs.cpp" />
+    <ClCompile Include="dxvk\dxvk_data.cpp" />
+    <ClCompile Include="dxvk\dxvk_descriptor.cpp" />
+    <ClCompile Include="dxvk\dxvk_device.cpp" />
+    <ClCompile Include="dxvk\dxvk_device_filter.cpp" />
+    <ClCompile Include="dxvk\dxvk_extensions.cpp" />
+    <ClCompile Include="dxvk\dxvk_fence.cpp" />
+    <ClCompile Include="dxvk\dxvk_format.cpp" />
+    <ClCompile Include="dxvk\dxvk_framebuffer.cpp" />
+    <ClCompile Include="dxvk\dxvk_gpu_event.cpp" />
+    <ClCompile Include="dxvk\dxvk_gpu_query.cpp" />
+    <ClCompile Include="dxvk\dxvk_graphics.cpp" />
+    <ClCompile Include="dxvk\dxvk_image.cpp" />
+    <ClCompile Include="dxvk\dxvk_instance.cpp" />
+    <ClCompile Include="dxvk\dxvk_lifetime.cpp" />
+    <ClCompile Include="dxvk\dxvk_memory.cpp" />
+    <ClCompile Include="dxvk\dxvk_meta_blit.cpp" />
+    <ClCompile Include="dxvk\dxvk_meta_clear.cpp" />
+    <ClCompile Include="dxvk\dxvk_meta_copy.cpp" />
+    <ClCompile Include="dxvk\dxvk_meta_mipgen.cpp" />
+    <ClCompile Include="dxvk\dxvk_meta_pack.cpp" />
+    <ClCompile Include="dxvk\dxvk_meta_resolve.cpp" />
+    <ClCompile Include="dxvk\dxvk_openvr.cpp" />
+    <ClCompile Include="dxvk\dxvk_openxr.cpp" />
+    <ClCompile Include="dxvk\dxvk_options.cpp" />
+    <ClCompile Include="dxvk\dxvk_pipecache.cpp" />
+    <ClCompile Include="dxvk\dxvk_pipelayout.cpp" />
+    <ClCompile Include="dxvk\dxvk_pipemanager.cpp" />
+    <ClCompile Include="dxvk\dxvk_queue.cpp" />
+    <ClCompile Include="dxvk\dxvk_renderpass.cpp" />
+    <ClCompile Include="dxvk\dxvk_resource.cpp" />
+    <ClCompile Include="dxvk\dxvk_sampler.cpp" />
+    <ClCompile Include="dxvk\dxvk_shader.cpp" />
+    <ClCompile Include="dxvk\dxvk_shader_key.cpp" />
+    <ClCompile Include="dxvk\dxvk_signal.cpp" />
+    <ClCompile Include="dxvk\dxvk_spec_const.cpp" />
+    <ClCompile Include="dxvk\dxvk_staging.cpp" />
+    <ClCompile Include="dxvk\dxvk_state_cache.cpp" />
+    <ClCompile Include="dxvk\dxvk_stats.cpp" />
+    <ClCompile Include="dxvk\dxvk_swapchain_blitter.cpp" />
+    <ClCompile Include="dxvk\dxvk_unbound.cpp" />
+    <ClCompile Include="dxvk\dxvk_util.cpp" />
+    <ClCompile Include="dxvk\hud\dxvk_hud.cpp" />
+    <ClCompile Include="dxvk\hud\dxvk_hud_font.cpp" />
+    <ClCompile Include="dxvk\hud\dxvk_hud_item.cpp" />
+    <ClCompile Include="dxvk\hud\dxvk_hud_renderer.cpp" />
+    <ClCompile Include="dxvk\platform\dxvk_win32_exts.cpp" />
+    <ClCompile Include="spirv\spirv_code_buffer.cpp" />
+    <ClCompile Include="spirv\spirv_compression.cpp" />
+    <ClCompile Include="spirv\spirv_module.cpp" />
+    <ClCompile Include="util\com\com_guid.cpp" />
+    <ClCompile Include="util\com\com_private_data.cpp" />
+    <ClCompile Include="util\config\config.cpp" />
+    <ClCompile Include="util\log\log.cpp" />
+    <ClCompile Include="util\log\log_debug.cpp" />
+    <ClCompile Include="util\sha1\sha1.c" />
+    <ClCompile Include="util\sha1\sha1_util.cpp" />
+    <ClCompile Include="util\sync\sync_recursive.cpp" />
+    <ClCompile Include="util\thread.cpp" />
+    <ClCompile Include="util\util_env.cpp" />
+    <ClCompile Include="util\util_fps_limiter.cpp" />
+    <ClCompile Include="util\util_gdi.cpp" />
+    <ClCompile Include="util\util_luid.cpp" />
+    <ClCompile Include="util\util_matrix.cpp" />
+    <ClCompile Include="util\util_monitor.cpp" />
+    <ClCompile Include="util\util_shared_res.cpp" />
+    <ClCompile Include="util\util_string.cpp" />
+    <ClCompile Include="vulkan\vulkan_loader.cpp" />
+    <ClCompile Include="vulkan\vulkan_names.cpp" />
+    <ClCompile Include="vulkan\vulkan_presenter.cpp" />
+    <ClCompile Include="d3d9\d3d9_adapter.cpp" />
+    <ClCompile Include="d3d9\d3d9_annotation.cpp" />
+    <ClCompile Include="d3d9\d3d9_buffer.cpp" />
+    <ClCompile Include="d3d9\d3d9_common_buffer.cpp" />
+    <ClCompile Include="d3d9\d3d9_common_texture.cpp" />
+    <ClCompile Include="d3d9\d3d9_cursor.cpp" />
+    <ClCompile Include="d3d9\d3d9_device.cpp" />
+    <ClCompile Include="d3d9\d3d9_fixed_function.cpp" />
+    <ClCompile Include="d3d9\d3d9_format.cpp" />
+    <ClCompile Include="d3d9\d3d9_format_helpers.cpp" />
+    <ClCompile Include="d3d9\d3d9_hud.cpp" />
+    <ClCompile Include="d3d9\d3d9_initializer.cpp" />
+    <ClCompile Include="d3d9\d3d9_interface.cpp" />
+    <ClCompile Include="d3d9\d3d9_main.cpp" />
+    <ClCompile Include="d3d9\d3d9_monitor.cpp" />
+    <ClCompile Include="d3d9\d3d9_multithread.cpp" />
+    <ClCompile Include="d3d9\d3d9_names.cpp" />
+    <ClCompile Include="d3d9\d3d9_options.cpp" />
+    <ClCompile Include="d3d9\d3d9_query.cpp" />
+    <ClCompile Include="d3d9\d3d9_sampler.cpp" />
+    <ClCompile Include="d3d9\d3d9_shader.cpp" />
+    <ClCompile Include="d3d9\d3d9_state.cpp" />
+    <ClCompile Include="d3d9\d3d9_stateblock.cpp" />
+    <ClCompile Include="d3d9\d3d9_surface.cpp" />
+    <ClCompile Include="d3d9\d3d9_swapchain.cpp" />
+    <ClCompile Include="d3d9\d3d9_swvp_emu.cpp" />
+    <ClCompile Include="d3d9\d3d9_texture.cpp" />
+    <ClCompile Include="d3d9\d3d9_util.cpp" />
+    <ClCompile Include="d3d9\d3d9_vertex_declaration.cpp" />
+    <ClCompile Include="d3d9\d3d9_volume.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dxso\dxso_analysis.h" />
+    <ClInclude Include="dxso\dxso_code.h" />
+    <ClInclude Include="dxso\dxso_common.h" />
+    <ClInclude Include="dxso\dxso_compiler.h" />
+    <ClInclude Include="dxso\dxso_ctab.h" />
+    <ClInclude Include="dxso\dxso_decoder.h" />
+    <ClInclude Include="dxso\dxso_enums.h" />
+    <ClInclude Include="dxso\dxso_header.h" />
+    <ClInclude Include="dxso\dxso_include.h" />
+    <ClInclude Include="dxso\dxso_isgn.h" />
+    <ClInclude Include="dxso\dxso_modinfo.h" />
+    <ClInclude Include="dxso\dxso_module.h" />
+    <ClInclude Include="dxso\dxso_options.h" />
+    <ClInclude Include="dxso\dxso_reader.h" />
+    <ClInclude Include="dxso\dxso_tables.h" />
+    <ClInclude Include="dxso\dxso_util.h" />
+    <ClInclude Include="dxvk\dxvk_adapter.h" />
+    <ClInclude Include="dxvk\dxvk_annotation.h" />
+    <ClInclude Include="dxvk\dxvk_barrier.h" />
+    <ClInclude Include="dxvk\dxvk_bind_mask.h" />
+    <ClInclude Include="dxvk\dxvk_buffer.h" />
+    <ClInclude Include="dxvk\dxvk_cmdlist.h" />
+    <ClInclude Include="dxvk\dxvk_compute.h" />
+    <ClInclude Include="dxvk\dxvk_constant_state.h" />
+    <ClInclude Include="dxvk\dxvk_context.h" />
+    <ClInclude Include="dxvk\dxvk_context_state.h" />
+    <ClInclude Include="dxvk\dxvk_cs.h" />
+    <ClInclude Include="dxvk\dxvk_data.h" />
+    <ClInclude Include="dxvk\dxvk_descriptor.h" />
+    <ClInclude Include="dxvk\dxvk_device.h" />
+    <ClInclude Include="dxvk\dxvk_device_filter.h" />
+    <ClInclude Include="dxvk\dxvk_device_info.h" />
+    <ClInclude Include="dxvk\dxvk_extensions.h" />
+    <ClInclude Include="dxvk\dxvk_extension_provider.h" />
+    <ClInclude Include="dxvk\dxvk_fence.h" />
+    <ClInclude Include="dxvk\dxvk_format.h" />
+    <ClInclude Include="dxvk\dxvk_framebuffer.h" />
+    <ClInclude Include="dxvk\dxvk_gpu_event.h" />
+    <ClInclude Include="dxvk\dxvk_gpu_query.h" />
+    <ClInclude Include="dxvk\dxvk_graphics.h" />
+    <ClInclude Include="dxvk\dxvk_graphics_state.h" />
+    <ClInclude Include="dxvk\dxvk_hash.h" />
+    <ClInclude Include="dxvk\dxvk_image.h" />
+    <ClInclude Include="dxvk\dxvk_include.h" />
+    <ClInclude Include="dxvk\dxvk_instance.h" />
+    <ClInclude Include="dxvk\dxvk_lifetime.h" />
+    <ClInclude Include="dxvk\dxvk_limits.h" />
+    <ClInclude Include="dxvk\dxvk_memory.h" />
+    <ClInclude Include="dxvk\dxvk_meta_blit.h" />
+    <ClInclude Include="dxvk\dxvk_meta_clear.h" />
+    <ClInclude Include="dxvk\dxvk_meta_copy.h" />
+    <ClInclude Include="dxvk\dxvk_meta_mipgen.h" />
+    <ClInclude Include="dxvk\dxvk_meta_pack.h" />
+    <ClInclude Include="dxvk\dxvk_meta_resolve.h" />
+    <ClInclude Include="dxvk\dxvk_objects.h" />
+    <ClInclude Include="dxvk\dxvk_openvr.h" />
+    <ClInclude Include="dxvk\dxvk_openxr.h" />
+    <ClInclude Include="dxvk\dxvk_options.h" />
+    <ClInclude Include="dxvk\dxvk_pipecache.h" />
+    <ClInclude Include="dxvk\dxvk_pipelayout.h" />
+    <ClInclude Include="dxvk\dxvk_pipemanager.h" />
+    <ClInclude Include="dxvk\dxvk_platform_exts.h" />
+    <ClInclude Include="dxvk\dxvk_queue.h" />
+    <ClInclude Include="dxvk\dxvk_recycler.h" />
+    <ClInclude Include="dxvk\dxvk_renderpass.h" />
+    <ClInclude Include="dxvk\dxvk_resource.h" />
+    <ClInclude Include="dxvk\dxvk_sampler.h" />
+    <ClInclude Include="dxvk\dxvk_shader.h" />
+    <ClInclude Include="dxvk\dxvk_shader_key.h" />
+    <ClInclude Include="dxvk\dxvk_signal.h" />
+    <ClInclude Include="dxvk\dxvk_spec_const.h" />
+    <ClInclude Include="dxvk\dxvk_staging.h" />
+    <ClInclude Include="dxvk\dxvk_state_cache.h" />
+    <ClInclude Include="dxvk\dxvk_state_cache_types.h" />
+    <ClInclude Include="dxvk\dxvk_stats.h" />
+    <ClInclude Include="dxvk\dxvk_swapchain_blitter.h" />
+    <ClInclude Include="dxvk\dxvk_unbound.h" />
+    <ClInclude Include="dxvk\dxvk_util.h" />
+    <ClInclude Include="dxvk\hud\dxvk_hud.h" />
+    <ClInclude Include="dxvk\hud\dxvk_hud_font.h" />
+    <ClInclude Include="dxvk\hud\dxvk_hud_item.h" />
+    <ClInclude Include="dxvk\hud\dxvk_hud_renderer.h" />
+    <ClInclude Include="spirv\spirv_code_buffer.h" />
+    <ClInclude Include="spirv\spirv_compression.h" />
+    <ClInclude Include="spirv\spirv_include.h" />
+    <ClInclude Include="spirv\spirv_instruction.h" />
+    <ClInclude Include="spirv\spirv_module.h" />
+    <ClInclude Include="util\com\com_guid.h" />
+    <ClInclude Include="util\com\com_include.h" />
+    <ClInclude Include="util\com\com_object.h" />
+    <ClInclude Include="util\com\com_pointer.h" />
+    <ClInclude Include="util\com\com_private_data.h" />
+    <ClInclude Include="util\config\config.h" />
+    <ClInclude Include="util\log\log.h" />
+    <ClInclude Include="util\log\log_debug.h" />
+    <ClInclude Include="util\rc\util_rc.h" />
+    <ClInclude Include="util\rc\util_rc_ptr.h" />
+    <ClInclude Include="util\sha1\sha1.h" />
+    <ClInclude Include="util\sha1\sha1_util.h" />
+    <ClInclude Include="util\sync\sync_list.h" />
+    <ClInclude Include="util\sync\sync_recursive.h" />
+    <ClInclude Include="util\sync\sync_signal.h" />
+    <ClInclude Include="util\sync\sync_spinlock.h" />
+    <ClInclude Include="util\sync\sync_ticketlock.h" />
+    <ClInclude Include="util\thread.h" />
+    <ClInclude Include="util\util_bit.h" />
+    <ClInclude Include="util\util_enum.h" />
+    <ClInclude Include="util\util_env.h" />
+    <ClInclude Include="util\util_error.h" />
+    <ClInclude Include="util\util_flags.h" />
+    <ClInclude Include="util\util_fps_limiter.h" />
+    <ClInclude Include="util\util_gdi.h" />
+    <ClInclude Include="util\util_lazy.h" />
+    <ClInclude Include="util\util_likely.h" />
+    <ClInclude Include="util\util_luid.h" />
+    <ClInclude Include="util\util_math.h" />
+    <ClInclude Include="util\util_matrix.h" />
+    <ClInclude Include="util\util_misc.h" />
+    <ClInclude Include="util\util_monitor.h" />
+    <ClInclude Include="util\util_ratio.h" />
+    <ClInclude Include="util\util_shared_res.h" />
+    <ClInclude Include="util\util_small_vector.h" />
+    <ClInclude Include="util\util_string.h" />
+    <ClInclude Include="util\util_time.h" />
+    <ClInclude Include="util\util_vector.h" />
+    <ClInclude Include="vulkan\vulkan_loader.h" />
+    <ClInclude Include="vulkan\vulkan_names.h" />
+    <ClInclude Include="vulkan\vulkan_presenter.h" />
+    <ClInclude Include="vulkan\vulkan_util.h" />
+    <ClInclude Include="d3d9\d3d9_adapter.h" />
+    <ClInclude Include="d3d9\d3d9_annotation.h" />
+    <ClInclude Include="d3d9\d3d9_buffer.h" />
+    <ClInclude Include="d3d9\d3d9_caps.h" />
+    <ClInclude Include="d3d9\d3d9_common_buffer.h" />
+    <ClInclude Include="d3d9\d3d9_common_texture.h" />
+    <ClInclude Include="d3d9\d3d9_constant_layout.h" />
+    <ClInclude Include="d3d9\d3d9_constant_set.h" />
+    <ClInclude Include="d3d9\d3d9_cursor.h" />
+    <ClInclude Include="d3d9\d3d9_device.h" />
+    <ClInclude Include="d3d9\d3d9_device_child.h" />
+    <ClInclude Include="d3d9\d3d9_fixed_function.h" />
+    <ClInclude Include="d3d9\d3d9_format.h" />
+    <ClInclude Include="d3d9\d3d9_format_helpers.h" />
+    <ClInclude Include="d3d9\d3d9_hud.h" />
+    <ClInclude Include="d3d9\d3d9_include.h" />
+    <ClInclude Include="d3d9\d3d9_initializer.h" />
+    <ClInclude Include="d3d9\d3d9_interface.h" />
+    <ClInclude Include="d3d9\d3d9_monitor.h" />
+    <ClInclude Include="d3d9\d3d9_multithread.h" />
+    <ClInclude Include="d3d9\d3d9_names.h" />
+    <ClInclude Include="d3d9\d3d9_options.h" />
+    <ClInclude Include="d3d9\d3d9_query.h" />
+    <ClInclude Include="d3d9\d3d9_resource.h" />
+    <ClInclude Include="d3d9\d3d9_sampler.h" />
+    <ClInclude Include="d3d9\d3d9_shader.h" />
+    <ClInclude Include="d3d9\d3d9_shader_permutations.h" />
+    <ClInclude Include="d3d9\d3d9_shader_validator.h" />
+    <ClInclude Include="d3d9\d3d9_spec_constants.h" />
+    <ClInclude Include="d3d9\d3d9_state.h" />
+    <ClInclude Include="d3d9\d3d9_stateblock.h" />
+    <ClInclude Include="d3d9\d3d9_subresource.h" />
+    <ClInclude Include="d3d9\d3d9_surface.h" />
+    <ClInclude Include="d3d9\d3d9_swapchain.h" />
+    <ClInclude Include="d3d9\d3d9_swvp_emu.h" />
+    <ClInclude Include="d3d9\d3d9_texture.h" />
+    <ClInclude Include="d3d9\d3d9_util.h" />
+    <ClInclude Include="d3d9\d3d9_vertex_declaration.h" />
+    <ClInclude Include="d3d9\d3d9_volume.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="d3d9\version.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="d3d9\d3d9.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
