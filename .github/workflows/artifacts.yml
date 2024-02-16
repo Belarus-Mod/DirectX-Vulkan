@@ -1,48 +1,51 @@
-name: Test Builds on Windows
+name: Building
 
-on: [push, pull_request, workflow_dispatch]
+on: [ push, pull_request ]
 
 jobs:
-  build-set-windows:
-    runs-on: windows-2022
+  build:
+    name: 'Building'
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [ Release ]
+        platform: [ x64 ]
+
+    env:
+      solution_name: dxvk.sln
 
     steps:
-    - name: Checkout code
-      id: checkout-code
+    - name: Checkout
       uses: actions/checkout@v3
       with:
-        submodules: recursive
+        fetch-depth: 0
 
-    - name: Setup glslangValidator
-      shell: pwsh
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: '5.x'
+
+    - name: Cache packages
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget
+
+    - name: Restore solution
       run: |
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/HansKristian-Work/vkd3d-proton-ci/main/glslangValidator.exe" -OutFile "glslangValidator.exe"
-        Write-Output "$pwd" | Out-File -FilePath "${Env:GITHUB_PATH}" -Append
+        nuget restore $env:solution_name
 
-    - name: Setup Meson
-      shell: pwsh
-      run: pip install meson
-
-    - name: Find Visual Studio
-      shell: pwsh
+    - name: Build solution
       run: |
-        $installationPath = Get-VSSetupInstance `
-          | Select-VSSetupInstance -Require Microsoft.VisualStudio.Workload.NativeDesktop -Latest `
-          | Select-Object -ExpandProperty InstallationPath
-        Write-Output "VSDEVCMD=${installationPath}\Common7\Tools\VsDevCmd.bat" `
-          | Out-File -FilePath "${Env:GITHUB_ENV}" -Append
+        msbuild $env:solution_name -p:Configuration=${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} -m -nologo
 
-    - name: Build MSVC x64
-      shell: pwsh
-      run: |
-        & "${Env:COMSPEC}" /s /c "`"${Env:VSDEVCMD}`" -arch=x64 -host_arch=x64 -no_logo && set" `
-          | % { , ($_ -Split '=', 2) } `
-          | % { [System.Environment]::SetEnvironmentVariable($_[0], $_[1]) }
-        meson --buildtype release --backend vs2022 build-msvc-x64
-        msbuild -m build-msvc-x64/dxvk.sln
-    
-    - name: Upload binaries x64
+    - name: Upload binaries
       uses: actions/upload-artifact@v3
       with:
-        name: dxvk-msvc-x64
-        path: build-msvc-x64/
+        name: binaries (${{ matrix.configuration }})
+        path: binaries/
